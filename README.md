@@ -120,19 +120,8 @@ print(model.predict(X))
 - `best_model.pkl` – Saved trained sklearn pipeline (scaler + classifier).
 - `scaler.pkl` – Saved scaler (if not included in pipeline).
 
-## Licensing & attribution
 
-This project uses publicly available audio datasets and open source packages. Include your preferred license file if you plan to publish (e.g., `MIT` or `Apache-2.0`).
 
-## Next steps
 
-- Add README to the repository and push to GitHub.
-- Optionally add a small `requirements-dev.txt` for testing or CI.
-- Add tests for `helper.extract_voice_features` on a few known WAV files.
 
-If you want, I can also:
-- Create a minimal `predict.py` script for CLI predictions.
-- Add a GitHub Actions workflow to run lint/tests and optionally retrain on push.
-
----
 
