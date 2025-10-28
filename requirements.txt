@@ -1,0 +1,12 @@
+flask
+flask-sqlalchemy
+flask-login
+flask-migrate
+werkzeug
+scikit-learn
+xgboost
+pandas
+numpy
+praat-parselmouth
+joblib
+pdfkit

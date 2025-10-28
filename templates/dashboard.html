@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card shadow-sm mb-4 border-0 rounded-3">
+    <div class="card-body p-4">
+        <h5 class="card-title">New Voice Analysis</h5>
+        <p class="card-text">Upload a clear audio recording (.wav) of a sustained "aaaah" sound.</p>
+        
+        <form action="{{ url_for('analyze') }}" method="POST" enctype="multipart/form-data">
+            <div class="input-group">
+                <input type="file" class="form-control" name="audio_file" accept="audio/*" required>
+                <button type="submit" class="btn btn-primary">Analyze Audio</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0 rounded-3">
+    <div class="card-body p-4">
+        <h5 class="card-title">Your Analysis History</h5>
+        
+        {% if analyses %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mt-3">
+                <thead class="table-light">
+                    <tr>
+                        <th>Date</th>
+                        <th>Result</th>
+                        <th>Confidence (PD)</th>
+                        <th>Audio File</th>
+                        <th>Report</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for analysis in analyses %}
+                    <tr>
+                        <td>{{ analysis.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>
+                            {% if analysis.prediction_result == 'Positive' %}
+                                <span class="badge bg-danger">Positive</span>
+                            {% else %}
+                                <span class="badge bg-success">Negative</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ "%.2f"|format(analysis.prediction_proba * 100) }}%</td>
+                        <td>
+                            <a href="{{ url_for('download_audio', analysis_id=analysis.id) }}">
+                                {{ analysis.audio_filename.split('/')[-1] }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url_for('download_report', analysis_id=analysis.id) }}" class="btn btn-sm btn-info">
+                                Download PDF
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p class="text-center text-muted mt-3">You have no previous analyses. Upload a file to get started!</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

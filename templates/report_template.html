@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis Report</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            margin: 40px; 
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        h1 { 
+            color: #333; 
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .content { margin-top: 30px; }
+        .result-box {
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .result-positive { color: #D8000C; font-weight: bold; font-size: 1.2em; }
+        .result-negative { color: #4F8A10; font-weight: bold; font-size: 1.2em; }
+        .footer {
+            margin-top: 50px;
+            font-size: 0.8em;
+            color: #777;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        strong { color: #000; }
+    </style>
+</head>
+<body>
+    <h1>Parkinson's Voice Analysis Report</h1>
+    
+    <div class="content">
+        <p><strong>Patient ID:</strong> {{ user.username }}</p>
+        <p><strong>Analysis Date:</strong> {{ analysis_date }}</p>
+        <p><strong>Original Audio File:</strong> {{ filename }}</p>
+
+        <div class="result-box">
+            <h3>Analysis Result</h3>
+            <p>
+                <strong>Status:</strong> 
+                {% if result == 'Positive' %}
+                <span class="result-positive">Indicators Consistent with Parkinson's</span>
+                {% else %}
+                <span class="result-negative">Indicators Not Consistent with Parkinson's</span>
+                {% endif %}
+            </p>
+            <p>
+                <strong>Confidence Score (for PD):</strong> {{ probability }}%
+            </p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Disclaimer:</strong> This is an AI-generated report for informational purposes only. It is not a medical diagnosis. Please consult a qualified healthcare professional for any medical advice or diagnosis.</p>
+    </div>
+</body>
+</html>
